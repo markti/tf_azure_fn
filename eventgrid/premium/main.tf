@@ -20,8 +20,13 @@ resource "azurerm_function_app" "function_app" {
 
   app_settings = local.combined_settings
 
-  pre_warmed_instance_count = 1
+  site_config {
+
+    pre_warmed_instance_count = 1
+    
+  }
   
+
 /*
   site_config {
 
