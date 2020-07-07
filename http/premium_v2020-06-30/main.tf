@@ -14,7 +14,7 @@ resource "azurerm_function_app" "function_app" {
   name                      = var.fn_settings.name
   location                  = var.environment.location
   resource_group_name       = var.environment.resource_group_name
-  app_service_plan_id       = var.app_service_plan_id
+  app_service_plan_id       = var.host_settings.plan_id
   storage_connection_string = var.host_settings.storage_connection_string
   version                   = var.fn_settings.runtime_version
 
