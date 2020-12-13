@@ -17,7 +17,6 @@ resource "azurerm_function_app" "function_app" {
   app_service_plan_id       = var.app_service_plan_id
   storage_connection_string = var.storage_connection_string
   version                   = var.azure_function_version
-  https_only                = true 
 
   app_settings = local.combined_settings
 /*
@@ -31,9 +30,6 @@ resource "azurerm_function_app" "function_app" {
 
   }
 */
-  identity {
-    type = "SystemAssigned"
-  }
 
   site_config {
 
@@ -79,15 +75,4 @@ resource "azurerm_template_deployment" "azfn_function_key" {
   BODY
 
   depends_on = [azurerm_function_app.function_app]
-}
-
-resource "time_sleep" "wait_30_seconds" {
-  depends_on = [azurerm_function_app.function_app]
-
-  create_duration = "30s"
-}
-
-# This resource will create (at least) 30 seconds after null_resource.previous
-resource "null_resource" "next" {
-  depends_on = [time_sleep.wait_30_seconds]
 }
